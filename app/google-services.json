@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "674395535893",
+    "project_id": "hemocaresv1",
+    "storage_bucket": "hemocaresv1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674395535893:android:a320ff8895f5a518f22c1c",
+        "android_client_info": {
+          "package_name": "com.example.hemocare_v1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674395535893-rlv6adc3bhlq1g4a77td6qlafj8n88ks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hemocare_v1",
+            "certificate_hash": "b266aad7a6d5bd587bb917e481423eef68d3259d"
+          }
+        },
+        {
+          "client_id": "674395535893-k10o26lfmj83um5g3qa3n3bu71livu00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuMBX-RM9AwGY7BWu6EmPtarEsuyLSzrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674395535893-k10o26lfmj83um5g3qa3n3bu71livu00.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

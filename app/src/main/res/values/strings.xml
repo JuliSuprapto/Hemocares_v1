@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Hemocares</string>  <!-- nama aplikasinya nanti-->
+
+    <string name="lorem">Lorem Ipsum</string>
+    <string name="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

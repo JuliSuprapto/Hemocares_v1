@@ -1,0 +1,52 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="toastStyleSuccess">
+        <item name="colorBackground">@color/green</item>
+        <item name="textColor">@color/white</item>
+        <item name="length">LONG</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="iconRight">@drawable/ic_check_black_24dp</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
+    <style name="toastStyleDanger">
+        <item name="colorBackground">@color/red</item>
+        <item name="textColor">@color/white</item>
+        <item name="length">LONG</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="iconRight">@drawable/ic_sentiment_very_dissatisfied_black_24dp</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
+    <style name="toastStyleWarning">
+        <item name="colorBackground">@color/orange</item>
+        <item name="textColor">@color/white</item>
+        <item name="length">LONG</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="iconRight">@drawable/ic_error_outline_black_24dp</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
+    <style name="toastStyleDefault">
+        <item name="colorBackground">@color/green</item>
+        <item name="textColor">@color/white</item>
+        <item name="length">LONG</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="iconRight">@drawable/ic_sentiment_dissatisfied_black_24dp</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
+</resources>
