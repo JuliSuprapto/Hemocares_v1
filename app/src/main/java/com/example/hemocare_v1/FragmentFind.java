@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,7 +37,6 @@ import com.example.hemocare_v1.server.BaseURL;
 import com.example.hemocare_v1.utils.App;
 import com.example.hemocare_v1.utils.GsonHelper;
 import com.example.hemocare_v1.utils.Prefs;
-import com.example.hemocare_v1.utils.Utils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -62,10 +63,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
-import static android.content.Context.LOCATION_SERVICE;
 
 
 /**
@@ -147,9 +151,9 @@ public class FragmentFind extends Fragment {
                             if (status == false) {
                                 Log.d("data driver = ", response.toString());
                                 String data = response.getString("data");
-                                JSONArray jsonArray = new JSONArray(data);
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                JSONArray arayData = new JSONArray(data);
+                                for (int i = 0; i < arayData.length(); i++) {
+                                    JSONObject jsonObject = arayData.getJSONObject(i);
                                     final ModelAccess driver = new ModelAccess();
                                     final String roles = jsonObject.getString("role");
                                     final String _id = jsonObject.getString("_id");
@@ -157,6 +161,7 @@ public class FragmentFind extends Fragment {
                                     final String phone = jsonObject.getString("phone");
                                     final String photoProfile = jsonObject.getString("profilephoto");
                                     bloodType = jsonObject.getString("bloodtype");
+                                    final String address = jsonObject.getString("address");
 
                                     if (roles.equals("2")) {
                                         driver.setFullname(fullname);
@@ -216,6 +221,11 @@ public class FragmentFind extends Fragment {
                                                 double lngNew = snapshot.child("longitude").getValue(Double.class);
                                                 double latLast = location.getLatitude();
                                                 double lngLast = location.getLongitude();
+                                                String fullname = snapshot.child("fullname").getValue(String.class);
+                                                String address = snapshot.child("address").getValue(String.class);
+                                                final String birthdate = snapshot.child("birthdate").getValue(String.class);
+                                                final String phone = snapshot.child("phone").getValue(String.class);
+                                                final String email = snapshot.child("email").getValue(String.class);
 
                                                 final float result[] = new float[10];
                                                 Location.distanceBetween(latLast, lngLast, latNew, lngNew, result);
@@ -225,9 +235,59 @@ public class FragmentFind extends Fragment {
 
                                                 LatLng newLocation = new LatLng(latNew, lngNew);
                                                 Marker marker = mNamedMarkers.get(key);
+
+                                                if (googleMaps != null) {
+                                                    googleMaps.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                                                        @Override
+                                                        public View getInfoWindow(Marker marker) {
+                                                            return null;
+                                                        }
+
+                                                        @Override
+                                                        public View getInfoContents(Marker marker) {
+                                                            View v = getLayoutInflater().inflate(R.layout.info_window, null);
+                                                            ImageView iconGolongan = v.findViewById(R.id.golonganPengguna);
+                                                            TextView namaPengguna = v.findViewById(R.id.namaPengguna);
+                                                            TextView tanggalLahirPengguna = v.findViewById(R.id.tanggalLahir);
+                                                            TextView nomorTeleponPengguna = v.findViewById(R.id.nomorTelepon);
+                                                            TextView emailPengguna = v.findViewById(R.id.emailPengguna);
+                                                            TextView alamatPengguna = v.findViewById(R.id.alamatPengguna);
+                                                            TextView statusPengguna = v.findViewById(R.id.statusDonor);
+                                                            TextView usiaPengguna = v.findViewById(R.id.usia);
+
+                                                            namaPengguna.setText(marker.getTitle());
+                                                            alamatPengguna.setText(marker.getSnippet());
+                                                            iconGolongan.setImageResource(markerMaps);
+
+                                                            Calendar calendar = Calendar.getInstance();
+                                                            Calendar dob = Calendar.getInstance();
+                                                            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+                                                            try {
+                                                                dob.setTime(sdf.parse(birthdate));
+                                                                int age = calendar.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+                                                                if (calendar.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+                                                                    age--;
+                                                                }
+                                                                Integer ageInt = new Integer(age);
+                                                                String ageString = ageInt.toString();
+                                                                usiaPengguna.setText(ageString);
+                                                            } catch (ParseException e) {
+                                                                e.printStackTrace();
+                                                            }
+
+                                                            tanggalLahirPengguna.setText(birthdate);
+                                                            nomorTeleponPengguna.setText(phone);
+                                                            emailPengguna.setText(email);
+                                                            statusPengguna.setText("sudah donor");
+
+                                                            return v;
+                                                        }
+                                                    });
+                                                }
+
                                                 if (marker == null) {
                                                     MarkerOptions options = getMarkerOption(key);
-                                                    marker = googleMaps.addMarker(options.position(newLocation));
+                                                    marker = googleMaps.addMarker(options.title(fullname).snippet(address).position(newLocation));
                                                     mNamedMarkers.put(key, marker);
                                                 } else {
                                                     marker.setPosition(newLocation);
@@ -247,6 +307,11 @@ public class FragmentFind extends Fragment {
                                                 double lngNew = snapshot.child("longitude").getValue(Double.class);
                                                 double latLast = location.getLatitude();
                                                 double lngLast = location.getLongitude();
+                                                String fullname = snapshot.child("fullname").getValue(String.class);
+                                                String address = snapshot.child("address").getValue(String.class);
+                                                final String birthdate = snapshot.child("birthdate").getValue(String.class);
+                                                final String phone = snapshot.child("phone").getValue(String.class);
+                                                final String email = snapshot.child("email").getValue(String.class);
 
                                                 final float result[] = new float[10];
                                                 Location.distanceBetween(latLast, lngLast, latNew, lngNew, result);
@@ -257,6 +322,56 @@ public class FragmentFind extends Fragment {
 
                                                 LatLng newLocation = new LatLng(latNew, lngNew);
                                                 Marker marker = mNamedMarkers.get(key);
+
+                                                if (googleMaps != null) {
+                                                    googleMaps.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                                                        @Override
+                                                        public View getInfoWindow(Marker marker) {
+                                                            return null;
+                                                        }
+
+                                                        @Override
+                                                        public View getInfoContents(Marker marker) {
+                                                            View v = getLayoutInflater().inflate(R.layout.info_window, null);
+                                                            ImageView iconGolongan = v.findViewById(R.id.golonganPengguna);
+                                                            TextView namaPengguna = v.findViewById(R.id.namaPengguna);
+                                                            TextView tanggalLahirPengguna = v.findViewById(R.id.tanggalLahir);
+                                                            TextView nomorTeleponPengguna = v.findViewById(R.id.nomorTelepon);
+                                                            TextView emailPengguna = v.findViewById(R.id.emailPengguna);
+                                                            TextView alamatPengguna = v.findViewById(R.id.alamatPengguna);
+                                                            TextView statusPengguna = v.findViewById(R.id.statusDonor);
+                                                            TextView usiaPengguna = v.findViewById(R.id.usia);
+
+                                                            namaPengguna.setText(marker.getTitle());
+                                                            alamatPengguna.setText(marker.getSnippet());
+                                                            iconGolongan.setImageResource(markerMaps);
+
+                                                            Calendar calendar = Calendar.getInstance();
+                                                            Calendar dob = Calendar.getInstance();
+                                                            SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+                                                            try {
+                                                                dob.setTime(sdf.parse(birthdate));
+                                                                int age = calendar.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+                                                                if (calendar.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+                                                                    age--;
+                                                                }
+                                                                Integer ageInt = new Integer(age);
+                                                                String ageString = ageInt.toString();
+                                                                usiaPengguna.setText(ageString);
+                                                            } catch (ParseException e) {
+                                                                e.printStackTrace();
+                                                            }
+
+                                                            tanggalLahirPengguna.setText(birthdate);
+                                                            nomorTeleponPengguna.setText(phone);
+                                                            emailPengguna.setText(email);
+                                                            statusPengguna.setText("sudah donor");
+
+                                                            return v;
+                                                        }
+                                                    });
+                                                }
+
                                                 if (marker == null) {
                                                     MarkerOptions options = getMarkerOption(key);
                                                     marker = googleMaps.addMarker(options.position(newLocation));
@@ -306,7 +421,9 @@ public class FragmentFind extends Fragment {
     }
 
     private MarkerOptions getMarkerOption(String key) {
-        return new MarkerOptions().icon(bitmapDescriptor(getActivity(), markerMaps));
+        MarkerOptions options = new MarkerOptions();
+        options.icon(bitmapDescriptor(getActivity(), markerMaps));
+        return options;
     }
 
     private BitmapDescriptor bitmapDescriptor(Context context, int vectorResId) {

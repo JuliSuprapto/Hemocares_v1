@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     private final int MIN_TIME = 1000; //1sec
     private final int MAX_DISTANCE = 1; //1meter
     private GoogleMap mMap;
+    ModelAccess modelAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,16 +166,32 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     @Override
     public void onLocationChanged(Location location) {
         if (location != null) {
-            saveLocation(location);
+            String _id = profile.get_id();
+            String fullname = profile.getFullname();
+            String address = profile.getAddress();
+            String nik = profile.getNik();
+            String birthdate = profile.getBirthdate();
+            String bloodtype = profile.getBloodtype();
+            String email = profile.getEmail();
+            String phone = profile.getPhone();
+            String username = profile.getUsername();
+            String password = profile.getPassword();
+            String profilephoto = profile.getProfilephoto();
+            String role = profile.getRole();
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+
+            modelAccess = new ModelAccess(_id, nik, fullname, username, password, bloodtype, phone, address, birthdate, profilephoto, email, role, latitude, longitude);
+            saveLocation(modelAccess);
         } else {
             StyleableToast.makeText(this, "Tidak ada lokasi...", R.style.toastStyleDefault).show();
         }
     }
 
-    private void saveLocation(Location location) {
+    private void saveLocation(ModelAccess modelAccess) {
         if (Utils.isLoggedIn()) {
-            reference.setValue(location);
-            Log.d("DATA LOCATION", String.valueOf(location));
+            reference.setValue(modelAccess);
+            Log.d("DATA LOCATION", String.valueOf(modelAccess));
         }
     }
 

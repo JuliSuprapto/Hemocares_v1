@@ -1,10 +1,13 @@
 package com.example.hemocare_v1.model;
 
+import android.location.Location;
+
 public class ModelAccess {
 
-    String _id, nik, fullname, username, password, bloodtype, phone, address, birthdate, profilephoto, email, role;
+    public String _id, nik, fullname, username, password, bloodtype, phone, address, birthdate, profilephoto, email, role;
+    double latitude, longitude;
 
-    public ModelAccess(String _id, String nik, String fullname, String username, String password, String bloodtype, String phone, String address, String birthdate, String profilephoto, String email, String role) {
+    public ModelAccess(String _id, String nik, String fullname, String username, String password, String bloodtype, String phone, String address, String birthdate, String profilephoto, String email, String role, double latitude, double longitude) {
         this._id = _id;
         this.nik = nik;
         this.fullname = fullname;
@@ -17,14 +20,15 @@ public class ModelAccess {
         this.profilephoto = profilephoto;
         this.email = email;
         this.role = role;
+        this.latitude = latitude;
+        this.longitude= longitude;
     }
 
     public ModelAccess() {
+
     }
 
-    public String get_id() {
-        return _id;
-    }
+    public String get_id() { return _id; }
 
     public void set_id(String _id) {
         this._id = _id;
@@ -110,11 +114,21 @@ public class ModelAccess {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
-    }
+    public String getRole() { return role; }
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public double getLatitude() { return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
