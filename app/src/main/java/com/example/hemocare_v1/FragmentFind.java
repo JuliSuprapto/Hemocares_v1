@@ -207,7 +207,7 @@ public class FragmentFind extends Fragment {
                         public void onMapReady(final GoogleMap googleMap) {
 
                             googleMaps = googleMap;
-
+                            final LatLng nowLocation = new LatLng(location.getLatitude(), location.getLongitude());
                             if (references != null) {
                                 final Map<String, Marker> mNamedMarkers = new HashMap<String, Marker>();
                                 references.addChildEventListener(new ChildEventListener() {
@@ -405,7 +405,6 @@ public class FragmentFind extends Fragment {
                                 });
                             }
 
-                            LatLng nowLocation = new LatLng(location.getLatitude(), location.getLongitude());
                             googleMap.setMinZoomPreference(15.0f);
                             googleMap.setMaxZoomPreference(20.0f);
                             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 16.0f));

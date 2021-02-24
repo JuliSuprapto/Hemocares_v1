@@ -10,14 +10,14 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:background="@color/green"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_wave_b"
         app:layout_constraintTop_toBottomOf="@+id/view"
@@ -69,7 +69,9 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="15dp"
+        app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@color/black"
+        app:hintTextAppearance="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/desc">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +85,7 @@
             android:inputType="number"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,7 +95,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@color/black"
+        app:hintTextAppearance="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/t_nik">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -107,7 +111,7 @@
             android:inputType="textCapWords"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +121,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@color/black"
+        app:hintTextAppearance="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/t_fullname">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -131,7 +137,7 @@
             android:inputType="text"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,6 +147,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        app:boxBackgroundColor="@color/white"
+        app:hintTextAppearance="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/t_username"
         app:passwordToggleEnabled="true">
 
@@ -155,33 +163,37 @@
             android:inputType="textPassword"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/t_blood"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@color/black"
+        app:hintTextAppearance="@color/black"
         app:helperText="Pilihan - A / B / AB / O"
         app:layout_constraintTop_toBottomOf="@+id/t_password">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/blood"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableStart="@drawable/ic_favorite_black_24dp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
             android:drawablePadding="10dp"
             android:drawableTint="@color/black"
+            android:enabled="false"
             android:hint="Jenis golongan darah..."
-            android:inputType="textCapCharacters"
-            android:textAllCaps="true"
+            android:inputType="none"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,6 +203,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        app:boxBackgroundColor="@color/white"
+        app:hintTextAppearance="@color/black"
         app:boxStrokeColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/t_blood">
 
@@ -205,31 +219,37 @@
             android:inputType="phone"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/do_regist"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/btn_signin"
         android:text="Daftar Sekarang"
         android:textAllCaps="false"
+        android:insetBottom="0dp"
+        android:insetTop="0dp"
+        app:cornerRadius="50dp"
         android:textColor="@color/white"
+        android:textSize="12sp"
+        app:backgroundTint="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t_phone" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/back_login"
         android:layout_width="370dp"
         android:layout_height="40dp"
-        android:background="@android:color/transparent"
+        android:background="#FFFFFF"
         android:text="Sudah mendaftar ? mari berbuat kebaikan..."
         android:textAllCaps="false"
+        android:textSize="12sp"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"

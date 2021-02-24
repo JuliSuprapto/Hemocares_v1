@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import com.android.volley.RequestQueue;
@@ -18,6 +20,8 @@ import com.android.volley.toolbox.Volley;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.hemocare_v1.R;
 import com.example.hemocare_v1.server.BaseURL;
+import com.example.hemocare_v1.utils.App;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
@@ -28,11 +32,12 @@ import java.util.HashMap;
 
 public class Registrasi extends AppCompatActivity {
 
-    Button doRegist, bLogin;
-    TextInputEditText bNik, bFullname, bUsername, bPassword, bBlood, bPhone;
+    MaterialButton doRegist, bLogin;
+    TextInputEditText bNik, bFullname, bUsername, bPassword, bPhone;
     ProgressDialog progressDialog;
-
+    AutoCompleteTextView bBlood;
     private RequestQueue mRequestQueue;
+    String []option = {"A", "B", "AB", "O"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +51,18 @@ public class Registrasi extends AppCompatActivity {
         bFullname.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         bUsername = (TextInputEditText) findViewById(R.id.username);
         bPassword = (TextInputEditText) findViewById(R.id.password);
-        bBlood = (TextInputEditText) findViewById(R.id.blood);
-        bBlood.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        bBlood = (AutoCompleteTextView) findViewById(R.id.blood);
         bPhone = (TextInputEditText) findViewById(R.id.phone);
+
+        final ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.option_item, option);
+        bBlood.setText(arrayAdapter.getItem(0).toString(), false);
+        bBlood.setAdapter(arrayAdapter);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
 
-        bLogin = (Button) findViewById(R.id.back_login);
-        doRegist = (Button) findViewById(R.id.do_regist);
+        bLogin = (MaterialButton) findViewById(R.id.back_login);
+        doRegist = (MaterialButton) findViewById(R.id.do_regist);
 
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +75,7 @@ public class Registrasi extends AppCompatActivity {
         doRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                App.getPref().clear();
                 String sNik = bNik.getText().toString();
                 String sFullname = bFullname.getText().toString();
                 String sUsername = bUsername.getText().toString();

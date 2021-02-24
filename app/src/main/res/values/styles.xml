@@ -13,6 +13,18 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="AppThemeRegistrasi" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/per42black</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
     <style name="toastStyleSuccess">
         <item name="colorBackground">@color/green</item>
         <item name="textColor">@color/white</item>

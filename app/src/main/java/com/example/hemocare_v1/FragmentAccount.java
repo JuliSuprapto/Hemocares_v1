@@ -120,6 +120,7 @@ public class FragmentAccount extends Fragment {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                App.getPref().clear();
                 startActivity(new Intent(getActivity(), Login.class));
                 Animatoo.animateSlideDown(getActivity());
             }
@@ -128,6 +129,7 @@ public class FragmentAccount extends Fragment {
         bRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                App.getPref().clear();
                 startActivity(new Intent(getActivity(), Registrasi.class));
                 Animatoo.animateSlideUp(getActivity());
             }

@@ -34,7 +34,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
-        <activity android:name=".access.Registrasi" />
+        <activity android:name=".access.Registrasi"
+            android:theme="@style/AppThemeRegistrasi"/>
         <activity android:name=".access.Login" />
         <activity
             android:name=".MainActivity"
